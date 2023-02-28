@@ -73,17 +73,63 @@
                             </p>
                         </div>
                         <div class="login-form-div">
-                            <form>
+
+                                   <!---- allert message Start -->
+                                   @if(Session::has('flash_message_success'))
+                                   <div class="alert alert-success border-0 bg-success alert-dismissible fade show py-2">
+                                       <div class="d-flex align-items-center">
+                                           <div class="font-35 text-white"><i class="bx bxs-check-circle"></i>
+                                           </div>
+                                           <div class="ms-3">
+                                               <h6 class="mb-0 text-white" style="text-align:center;">Success Alerts</h6>
+                                               <hr>
+                                               <div class="text-white" style="text-align:center;">{!! session('flash_message_success') !!} </div>
+                                           </div>
+                                       </div>
+                                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                   </div>
+                                   @endif
+
+                                   @if(Session::has('flash_message_error'))
+                                   <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
+                                       <div class="d-flex align-items-center">
+                                           <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
+                                           </div>
+                                           <div class="ms-3">
+                                               <h6 class="mb-0 text-white">Error Alerts</h6>
+                                               <div class="text-white">{!! session('flash_message_error') !!}</div>
+                                           </div>
+                                       </div>
+                                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                   </div>
+                                   @endif
+                                   <!---- allert message End -->
+
+                            <form method="POST" action="{{ url('/en') }}/<?php if(isset($reff_id)){ if($reff_id!=''){ echo $reff_id ;}}?>">
+                                @csrf
                                 <div class="mb-2 row">
 
                                     <div class="col-12 col-sm-12">
-                                        <button type="submit" class="btn-login">UPLINE</button>
+                                        <?php   if(isset($checkReffID)){ 
+                                                    if($checkReffID==0){ echo '<div class="error-login-id">Invalid Upline ID</div>';}
+                                                }
+                                        ?>
+                                        <input id="wallet_address" type="hidden"  class="form-control log-text @error('wallet_address') is-invalid @enderror" placeholder="Wallet Address" name="wallet_address" value="T9yYDKWjQNY6SDM1W5J3eHTbKkv1MG7AHz" required autocomplete="wallet_address" autofocus>
+
+                                        <input id="reff_id" type="text"  class="form-control log-text @error('reff_id') is-invalid @enderror" placeholder="Referral ID" name="reff_id" value="<?php if(isset($reff_id)){ if($reff_id!=''){ echo $reff_id ;} } elseif(isset($_POST['reff_id'])){ echo old('reff_id'); } ;?>" required autocomplete="reff_id" autofocus>
+
+                                        @error('reff_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
 
 
 
                                     <div class="col-12 col-sm-12">
-                                        <button type="submit" class="btn-white">Registration</button>
+                                        
+                                        <button type="submit" style="margin-top: 30px;" class="btn-white" <?php  if(isset($checkReffID)){ if($checkReffID==0){ echo "disabled";}} ?>>Registration</button>
                                     </div>
                                     <hr>
                                     <p class="login-bottom-text">
@@ -104,24 +150,49 @@
                             </div>
                         </div>
                         <div class="login-form-div">
-                            <form>
+                      
                                 <div class="mb-2 row">
-
+                                <form method="POST" action="#">
+                                @csrf
                                     <div class="col-12 col-sm-12">
-                                        <button type="submit" class="btn-login">Automatic login</button>
+                                        <button type="button" class="btn-login">Automatic login</button>
                                     </div>
+                                </form>
 
+                                <div class="col-12 col-sm-12">
+                                @if(Session::has('flash_message_errors'))
+                                <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
+                                    <div class="d-flex align-items-center">
+                                       
+                                        <div class="ms-3">
+                                            <div class="text-white">{!! session('flash_message_errors') !!}</div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                @endif
+                            </div>
+                                <!---- allert message End -->
+                                <form method="POST" action="{{ route('viewing') }}">
+                                    @csrf
                                     <div class="col-12 col-sm-12">
-                                        <input type="text" class="form-control log-text" id="inputPassword"
-                                            placeholder="User ID">
+                                        
+                                     
+                                            <input id="user_id" type="text" class="form-control log-text @error('user_id') is-invalid @enderror" placeholder="User ID" name="user_id" value="<?php if(isset($user_id)) { echo $user_id;}?>" required  autofocus>
+                                           
+                                            @error('user_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                     </div>
 
                                     <div class="col-12 col-sm-12">
                                         <button type="submit" class="btn-viewing">Viewing</button>
                                     </div>
-
+                                </form>
                                 </div>
-                            </form>
+                           
                         </div>
                     </div>
                 </div>

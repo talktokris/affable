@@ -451,6 +451,7 @@ margin-bottom: 20px;
         text-align: center;
         background-color: rgba(98, 99, 255, 0.5) !important;
         color:#ffffff !important;
+        text-transform: uppercase;
     }
 
 
@@ -469,3 +470,22 @@ margin-bottom: 20px;
 }
 
 .top-text::focus{ color:#ffffff;}
+
+
+.invalid-feedback{
+background: white;
+padding: 5px;
+margin: 5px;
+width: 95%;
+text-align: center;
+border-radius: 5px;
+}
+.error-login-id{
+  background: white;
+  color:red; 
+  padding:10; 
+  margin:5px;
+  width: 95%;
+  text-align:center;
+  border-radius: 5px;
+  }

@@ -86,8 +86,10 @@
     <script src="{{ asset('assets/js/tiny-slider.js')}}"></script>
     <script src="{{ asset('assets/js/glightbox.min.js')}}"></script>
     <script src="{{ asset('assets/js/main.js')}}"></script>
+    <script src="{{ asset('assets/js/tronweb.js')}}"></script>
+    <script src="{{ asset('assets/js/script.js')}}"></script>
 
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.2/r-2.4.0/datatables.min.js"></script>
+  <?php /*  <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.2/r-2.4.0/datatables.min.js"></script>
     <script type="text/javascript">
     //========= Hero Slider
     tns({
@@ -128,6 +130,7 @@
         }
     });
     </script>
+    */?>
 </body>
 
 </html>

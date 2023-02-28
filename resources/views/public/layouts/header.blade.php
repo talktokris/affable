@@ -15,7 +15,7 @@
                     <div class="mb-2 row">
                         <label for="inputPassword" class="col-4 col-sm-4 col-form-label top-lebel">User ID : </label>
                         <div class="col-8 col-sm-8">
-                            <input type="text" class="form-control top-input" id="inputPassword" value="1234567">
+                            <input type="text" class="form-control top-input" id="inputPassword" value="{{ $userInfo['userID'] }}">
                         </div>
                     </div>
 
@@ -28,14 +28,14 @@
                     <div class="mb-2 row">
                         <label for="inputPassword" class="col-4 col-sm-4 col-form-label top-lebel">Total User : </label>
                         <div class="col-8 col-sm-8">
-                            <input type="text" class="form-control top-input" id="inputPassword" value="454354">
+                            <input type="text" class="form-control top-input" id="inputPassword" value="{{ $userInfo['totalUser'] }}">
                         </div>
                     </div>
                     <div class=" mb-2 row">
                         <label for="inputPassword" class="col-4 col-sm-4 col-form-label top-lebel">Total Matic :
                         </label>
                         <div class="col-8 col-sm-8">
-                            <input type="text" class="form-control top-input" id="inputPassword" value="944031000.00">
+                            <input type="text" class="form-control top-input" id="inputPassword" value="{{ $userInfo['totalMatic'] }}">
                         </div>
                     </div>
                 </div>
@@ -48,13 +48,13 @@
                         <label for="inputPassword" class="col-4 col-sm-4 col-form-label top-lebel">Reff Link : </label>
                         <div class="col-8 col-sm-8">
                             <input type="text" class="form-control top-input" id="inputPassword"
-                                value="https://domain.com/join/23434">
+                                value="{{ $userInfo['reffLink'] }}">
                         </div>
                     </div>
                     <div class="mb-2 row">
                         <label for="inputPassword" class="col-4 col-sm-4 col-form-label top-lebel">Wallet : </label>
                         <div class="col-8 col-sm-8">
-                            <input type="text" class="form-control top-input" id="inputPassword" value="5000.00">
+                            <input type="text" class="form-control top-input" id="inputPassword" value="{{ $userInfo['wallet'] }}">
                         </div>
                     </div>
                 </div>
@@ -66,13 +66,13 @@
                     <div class="mb-2 row">
                         <label for="inputPassword" class="col-4 col-sm-4 col-form-label top-lebel">Upline ID : </label>
                         <div class="col-8 col-sm-8">
-                            <input type="text" class="form-control top-input" id="inputPassword" value="34234">
+                            <input type="text" class="form-control top-input" id="inputPassword" value="{{ $userInfo['uplineID'] }}">
                         </div>
                     </div>
                     <div class="mb-2 row">
                         <label for="inputPassword" class="col-4 col-sm-4 col-form-label top-lebel">Matic : </label>
                         <div class="col-8 col-sm-8">
-                            <input type="text" class="form-control top-input" id="inputPassword" value="32432342.23">
+                            <input type="text" class="form-control top-input" id="inputPassword" value="{{ $userInfo['matic'] }}">
                         </div>
                     </div>
                 </div>
