@@ -35,6 +35,9 @@ Route::get('/withdrawal', [App\Http\Controllers\WithdrawalPageController::class,
 Route::get('/log-out', [App\Http\Controllers\authCheckController::class, 'logoutSession'])->name('logoutSession');
 
 
+Route::get('/cron/payment', [App\Http\Controllers\paymentController::class, 'checkPayment'])->name('checkPayment');
+
+
 
 Route::group(['middleware' => ['auth']], function () {
 

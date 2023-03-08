@@ -20,6 +20,7 @@ class HomePageController extends Controller
 
 
         return view("public.home")->with(compact("userInfo"));
+        
         }
     }
 }

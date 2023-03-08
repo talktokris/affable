@@ -1,3 +1,13 @@
+$("#reffLinkDiv").click(function(){
+    alert("hi");
+});
+
+
+
+
+
+/*
+
 
 var test= tronWeb.address.toHex("TYJg7RocvCdwGaWmKbzfdSKi8Hn5nGsdYJ");
 //alert("hi");

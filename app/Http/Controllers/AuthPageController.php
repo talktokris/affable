@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Member;
+use App\Models\Package_list;
+use App\Models\Package;
 
 class AuthPageController extends Controller
 {
@@ -61,7 +63,7 @@ class AuthPageController extends Controller
 
                 $data = $request->all();
                 $reff_id=$data['reff_id'];
-                
+          
 
                 if($checkReffID==0){ redirect($roughtWord."/".$reff_id)->with('checkReffID', $checkReffID)->with('reff_id', $reff_id);}
                 else {
@@ -73,47 +75,48 @@ class AuthPageController extends Controller
                 if($uplineIDCount==0){ 
                     $setUplineIDFinal = $reff_id; 
                     $setCarryGenSideFinal = $this->getSameSide($setUplineIDFinal) ;
+                    $NewData = $this->findLastDoneLineLoop($reff_id, $setCarryGenSideFinal);
+                    $setUplineIDFinal = $NewData['user_id']; 
+
+                    
                 }elseif($uplineIDCount==1){ 
                     $setUplineIDFinal = $reff_id; 
                     $setCarryGenSideFinal = $this->getOpsiteSide($setUplineIDFinal) ;
+                    $NewData = $this->findLastDoneLineLoop($reff_id, $setCarryGenSideFinal);
+                    $setUplineIDFinal = $NewData['user_id']; 
+
+
                 }elseif($uplineIDCount==2){ 
-                    $setUplineIDFinal = $reff_id; 
-                    $getUserGinSide = $this->getSameSide($reff_id) ;
+                    $setUplineIDFinal = $reff_id;
+                    $getUserGinSide = $this->getOpsiteSide($setUplineIDFinal) ; 
+                   // $getUserGinSide = $this->getSameSide($reff_id) ;
                     $NewData = $this->findLastDoneLineLoop($reff_id, $getUserGinSide);
                     $setUplineIDFinal = $NewData['user_id']; 
-                    $setCarryGenSideFinal=$getUserGinSide;                  
+                    $setCarryGenSideFinal=$getUserGinSide;  
+
                 }elseif($uplineIDCount==3){ 
                     $setUplineIDFinal = $reff_id; 
                     $getUserGinSide = $this->getSameSide($reff_id) ;
-                    $setCarryGenSideFinal=$this->setOpSideLogic($getUserGinSide);   
-                    $NewData = $this->findLastDoneLineLoop($reff_id, $setCarryGenSideFinal);
+                   // $setCarryGenSideFinal=$this->setOpSideLogic($getUserGinSide);   
+                    $NewData = $this->findLastDoneLineLoop($reff_id, $getUserGinSide);
                     $setUplineIDFinal = $NewData['user_id']; 
+                    $setCarryGenSideFinal=$getUserGinSide; 
                                
                 }elseif($uplineIDCount==4){ 
                     $setUplineIDFinal = $reff_id; 
                     $getUserGinSide = $this->getSameSide($reff_id) ;
                     $setCarryGenSideFinal=$this->setOpSideLogic($getUserGinSide);   
                     $NewData = $this->findLastDoneLineLoop($reff_id, $setCarryGenSideFinal);
-                    $setUplineIDFinal = $NewData['user_id'];                 
+                    $setUplineIDFinal = $NewData['user_id'];  
+                    
                 }elseif($uplineIDCount==5){ 
                     $setUplineIDFinal = $reff_id; 
                     $getUserGinSide = $this->getSameSide($reff_id) ;
-                    $NewData = $this->findLastDoneLineLoop($reff_id, $getUserGinSide);
+                    $setCarryGenSideFinal=$this->setOpSideLogic($getUserGinSide); 
+                    $NewData = $this->findLastDoneLineLoop($reff_id, $setCarryGenSideFinal);
                     $setUplineIDFinal = $NewData['user_id']; 
-                    $setCarryGenSideFinal=$getUserGinSide;                  
-                }elseif($uplineIDCount==6){ 
-                    $setUplineIDFinal = $reff_id; 
-                    $getUserGinSide = $this->getSameSide($reff_id) ;
-                    $setCarryGenSideFinal=$this->setOpSideLogic($getUserGinSide);   
-                    $NewData = $this->findLastDoneLineLoop($reff_id, $setCarryGenSideFinal);
-                    $setUplineIDFinal = $NewData['user_id'];                 
-                }elseif($uplineIDCount==7){ 
-                    $setUplineIDFinal = $reff_id; 
-                    $getUserGinSide = $this->getSameSide($reff_id) ;
-                    $setCarryGenSideFinal=$this->setOpSideLogic($getUserGinSide);   
-                    $NewData = $this->findLastDoneLineLoop($reff_id, $setCarryGenSideFinal);
-                    $setUplineIDFinal = $NewData['user_id'];                 
-                }elseif($uplineIDCount>=8){
+
+                }elseif($uplineIDCount>=6){
 
                     $setUplineIDFinal = $reff_id; 
                     $newCuppllingUpline= $this->findCupplingIDLoop($reff_id);
@@ -133,10 +136,10 @@ class AuthPageController extends Controller
 
                   //  dd("uplineIDCount : ".$dataUplineBellowCount.'---'.$setUplineIDFinal. ' - -'.$setCarryGenSideFinal);
                     
-                    
                 }
 
                 // Upline ID Find Login Start
+
 
                 $uplineSave=$setUplineIDFinal;
                 $carry_gen=$setCarryGenSideFinal;
@@ -154,7 +157,25 @@ class AuthPageController extends Controller
                 $imageSave->status = $saveStatus;
                 $imageSave->save();
 
-                    if($imageSave){
+                $pacData= Package_list::where([['id',1],['status',1]])->get()->toArray();
+
+                if(count($pacData)>=1){  $packageSelected= $pacData[0]['package_amount']; }
+                else {$packageSelected=20;}
+                $transation_hash='';
+                $pacSave = new Package;
+                $pacSave->mem_id= $imageSave->id;
+                $pacSave->user_id = $imageSave->user_id;
+                $pacSave->wallet_address = $imageSave->wallet_address;
+                $pacSave->package_amount = $packageSelected;
+                $pacSave->transation_hash=$transation_hash;
+                $pacSave->paid_status=0;
+                $pacSave->active_status=0;
+                $pacSave->save();
+
+
+                
+
+                    if($pacSave){
 
                         $tokenHash = app('App\Http\Controllers\authCheckController')->tokenCreate($GenUserID, 1);
                       
