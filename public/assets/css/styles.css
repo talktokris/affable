@@ -574,8 +574,8 @@ border-radius: 5px;
 
 
   .disabled{
-    background: #cccccc !important;
-    color: #102971 !important;
+    background: #4f607a !important;
+    color: #cccccc !important;
   }
   .message_alert{
     padding: 5px !important;
@@ -593,4 +593,7 @@ border-radius: 5px;
 
   .showBtn{
     visibility:visible;
+  }
+  .message_alert{
+    text-align: center !important;
   }

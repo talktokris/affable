@@ -50,10 +50,11 @@ class paymentController extends Controller
 
             $saveIncome = app('App\Http\Controllers\incomeSaveController')
             ->incomeSave($user_id, $toUserId, $user_id, $incomeTypeInt,
-             $incomeTypeWord, 1, 1, $package_amount);
+             $incomeTypeWord, 1, 1, $package_amount, 0, 2);
 
 
-             if($saveIncome==1){
+            if ($incomeSave->status==1){
+            // if($saveIncome==1){
 
                 echo "Income Save Succesfully </br>";
 

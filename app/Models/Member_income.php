@@ -10,6 +10,8 @@ class Member_income extends Model
     use HasFactory;
 
     protected $fillable = [
+        'debit_credit_status',
+        'withdrawal_remarks',
         'from_user_id',
         'to_user_id',
         'trigger_user_id',

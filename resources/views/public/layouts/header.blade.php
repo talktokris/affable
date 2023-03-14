@@ -97,7 +97,7 @@
                     <div class="mb-2 row">
                         <label for="inputPassword" class="col-4 col-sm-5 col-form-label top-lebel">Balance : </label>
                         <div class="col-8 col-sm-7">
-                            <input type="text" class="form-control top-input" id="inputPassword" value="{{ $userInfo['matic'] }}">
+                            <input type="text" class="form-control top-input" id="user-ac-balance" value="{{ $userInfo['matic'] }}">
                         </div>
                     </div>
                 </div>

@@ -31,7 +31,12 @@ Route::post('/viewing', [App\Http\Controllers\AuthPageController::class, 'viewin
 Route::get('/home', [App\Http\Controllers\HomePageController::class, 'index'])->name('home');
 Route::get('/partners', [App\Http\Controllers\PartnersPageController::class, 'index'])->name('partners');
 Route::get('/statics', [App\Http\Controllers\StaticsPageController::class, 'index'])->name('statics');
-Route::get('/withdrawal', [App\Http\Controllers\WithdrawalPageController::class, 'index'])->name('withdrawal');
+Route::match(array('GET','POST'),'withdrawal', [App\Http\Controllers\WithdrawalPageController::class, 'index'])->name("withdrawal");
+//Route::get('/withdrawal'. [App\Http\Controllers\WithdrawalPageController::class, 'index'])->name('withdrawal')
+
+Route::post('/withdrawal-ajex', [App\Http\Controllers\WithdrawalPageController::class, 'withdrawalAjex'])->name("withdrawal-ajex");
+
+
 Route::get('/log-out', [App\Http\Controllers\authCheckController::class, 'logoutSession'])->name('logoutSession');
 
 
@@ -44,10 +49,10 @@ Route::group(['middleware' => ['auth']], function () {
    // Route::match(array('GET','POST'),'/admin/create-news-post', [App\Http\Controllers\Admin\AdminNewsController::class, 'createNewsPost'])->name('create-new-post');
 
   
-   Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+   Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin-home');
    Route::get('/admin/user/view/{id}', [App\Http\Controllers\HomeController::class, 'tree'])->name('treeview');
 
-Route::get('/admin/home2', [App\Http\Controllers\WithdrawalPageController::class, 'index'])->name('withdrawal');
+Route::get('/admin/home2', [App\Http\Controllers\WithdrawalPageController::class, 'index'])->name('withdrawal-two');
 
 });
 
